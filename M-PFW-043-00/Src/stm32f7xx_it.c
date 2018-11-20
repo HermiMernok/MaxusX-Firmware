@@ -36,7 +36,6 @@
 #include "stm32f7xx.h"
 #include "F769_UART.h"
 
-
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */

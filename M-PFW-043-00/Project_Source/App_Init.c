@@ -58,7 +58,7 @@ void Application_Init(void)
 	App_ACK_Init ();
 
 	//=== Initialise LCD ===
-	BSP_LCD_Init();
+	LCD_Init();
 	uint8_t NOR_STATUS = 0;
 	char NOR_Msg[50] = {0};
 	/****************************************************************/

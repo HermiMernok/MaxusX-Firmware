@@ -95,7 +95,7 @@
 #include "F769_LCD.h"
 #include "F769_Timers.h"
 
-// === ICs ===
+// === Drivers ===
 
 #include "MCP23S17.h"
 #include "MR25H40.h"
@@ -103,6 +103,7 @@
 #include "MT25Q1G.h"
 #include "SN65DSI83.h"
 #include "S29GL01GS.h"
+#include "LCD.h"
 
 // === Application ===
 

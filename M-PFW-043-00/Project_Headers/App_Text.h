@@ -9,7 +9,7 @@
 
 //Includes
 #include "Global_Variables.h"
-#include "F769_LCD.h"
+
 #define SPACE	32
 
 //Defines

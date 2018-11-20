@@ -55,7 +55,6 @@
 
 //#include "049.h"
 
-
 //struct netif gnetif;
 /* Private variables ---------------------------------------------------------*/
 
@@ -73,11 +72,67 @@ void MX_USB_HOST_Process(void);
 static void Netif_Config(void);
 extern vision_device Pulse400_Module;
 
+uint32_t Color_Wheel_Array[] =
+{
+		LCD_COLOR_DARKRED,		//0 *
+		LCD_COLOR_RED,			//1
+		LCD_COLOR_LIGHTRED,     //2 *
+		LCD_COLOR_ORANGE,       //3 *
+		LCD_COLOR_DARKYELLOW,   //4 *
+		LCD_COLOR_YELLOW,       //5
+		LCD_COLOR_LIGHTYELLOW,  //6
+		LCD_COLOR_DARKGREEN,    //7 *
+		LCD_COLOR_GREEN,        //8
+		LCD_COLOR_LIGHTGREEN,   //9
+		LCD_COLOR_DARKCYAN,     //10 *
+		LCD_COLOR_CYAN,         //11
+		LCD_COLOR_LIGHTCYAN,    //12
+		LCD_COLOR_DARKBLUE,     //13 *
+		LCD_COLOR_BLUE,         //14
+		LCD_COLOR_LIGHTBLUE,    //15 *
+		LCD_COLOR_DARKMAGENTA,  //16 *
+		LCD_COLOR_MAGENTA,      //17
+		LCD_COLOR_LIGHTMAGENTA, //18 *
+		LCD_COLOR_BLACK,        //19
+		LCD_COLOR_DARKGRAY,     //20 *
+		LCD_COLOR_LIGHTGRAY,    //21 *
+		LCD_COLOR_WHITE,        //22
+
+
+};
+
+uint8_t Index = 0;
+uint8_t Prev_value = 0;
+void Color_Line_test()
+{
+
+	for(int i = 0 ; i < 9 ; i++)
+	{
+		BSP_LCD_SetTextColor(Color_Wheel_Array[Index]);
+		BSP_LCD_FillRect(i*50,0,100,600);
+		Index++;
+
+		if(Index == 22)
+		{
+			Index = 0;
+		}
+
+	}
+
+	Index = Index - 8;
+
+	if(Index > 23)
+	{
+		Index = 22+Index;
+	}
+}
+
+
 
 int main(void)
 {
-		Init_769();
-		Application_Init();
+	Init_769();
+	Application_Init();
 
 	//
 	//	uint8_t RxBuffer1[6400] = {0};
@@ -93,70 +148,45 @@ int main(void)
 	//	//S29GL01GS_WriteBuffer_32bit(&S29GL01GS, &image_data_049[0], IMG_03_Addr			+      	 IMG_03_Size, 6400);
 	//	//S29GL01GS_ReadBuffer(&S29GL01GS, &RxBuffer1[0], NOR_BLOCK_0, 6400);
 
-		//Power CAN bus //Note State is swapped, true = off and false = on
-		IO_Output_control(PWR_CAN2, false);
+	//Power CAN bus //Note State is swapped, true = off and false = on
+	IO_Output_control(PWR_CAN2, false);
 
-		//Init dummy DMA setup
-		uint8_t Buffer[10] = {0};
-		uint8_t Buffertx[6] = {'1','2','3','4','5','6'};
+	//Init dummy DMA setup
+	uint8_t Buffer[10] = {0};
+	uint8_t Buffertx[6] = {'1','2','3','4','5','6'};
 
-		DMA_UART_RF_RX(Buffer, 10);
-		DMA_UART_RF_TX(Buffertx, 6);
-		extern uint8_t RF_RX_OK;
-		extern UART_HandleTypeDef huartx[COMn];
+	DMA_UART_RF_RX(Buffer, 10);
+	DMA_UART_RF_TX(Buffertx, 6);
+	extern uint8_t RF_RX_OK;
+	extern UART_HandleTypeDef huartx[COMn];
 
-		uint16_t county = 0;
-		uint16_t countx = 0;
 
-		uint16_t directiony = 0;
-				uint16_t directionx = 0;
-
-				uint32_t colour =LCD_COLOR_LIGHTGRAY;
-		//MX_IWDG_Init(10000);
 	while (1)
 	{
-
+		BSP_LCD_SetTextColor(LCD_COLOR_DARKGRAY);
+		BSP_LCD_FillRect(10,580,2,2);
 		__HAL_IWDG_RELOAD_COUNTER(&hiwdg); //Reload Watchdog -- Feed the dog
-		BSP_LCD_SetTextColor(colour);
-		BSP_LCD_FillRect(countx,county,50,50);
-		TextToScreen_MED(10,10,"Light Sensor OK",LCD_COLOR_BLACK,LCD_COLOR_GREEN );
-		Delay(1);
 
+		//TextToScreen_MED(10,10,"Light Sensor OK",LCD_COLOR_BLUE,LCD_COLOR_GRAY );
+		Delay(10);
+		//Color_Line_test();
 
-		uint32_t read_array[2200] = {0};
-		if(countx+50 == 350 || countx<=0)
-		{
-			directionx ^= 1;
-		}
+		TextToScreen_SML(10,10, "o", LCD_COLOR_BROWN,LCD_COLOR_BLACK);
 
-		if(county+50 == 300 || county<=0)
-		{
-			directiony ^= 1;
-		}
+		uint8_t text_buffer[100];
 
-		BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-		if(directionx == 1)
-		{
-			BSP_LCD_FillRect(countx,county,50,1);
-			countx++;
-		}
-		else
-		{
-			BSP_LCD_FillRect(countx,county+49,50,1);
-			countx--;
-		}
-		if(directiony == 1)
-		{
-			BSP_LCD_FillRect(countx,county,1,50);
-			county++;
-			colour =LCD_COLOR_LIGHTGRAY;
-		}
-		else
-		{
-			BSP_LCD_FillRect(countx+49,county,1,50);
-			county--;
-			colour =LCD_COLOR_DARKGRAY;
-		}
+//		for(int i =0 ; i <23 ; i++)
+//		{
+//			sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
+//			TextToScreen_SML(10,i*24,text_buffer, Color_Wheel_Array[i], LCD_COLOR_BLACK);
+//		}
+
+		for(int i =0 ; i <23 ; i++)
+			{
+				sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
+				TextToScreen_SML(10,i*24,text_buffer, LCD_COLOR_WHITE, Color_Wheel_Array[i]);
+			}
+
 	}
 
 
