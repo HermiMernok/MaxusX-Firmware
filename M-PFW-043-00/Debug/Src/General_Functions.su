@@ -1,0 +1,14 @@
+General_Functions.c:32:10:BCD2Bin	24	static
+General_Functions.c:52:9:BCD2Bin1	24	static
+General_Functions.c:70:9:BCD2Bin2	24	static
+General_Functions.c:88:9:BCD2Bin3	24	static
+General_Functions.c:107:6:Bin2BCD	32	static
+General_Functions.c:155:6:Int2Byte	24	static
+General_Functions.c:172:10:Byte2Int	24	static
+General_Functions.c:191:6:HextoASCII	24	static
+General_Functions.c:215:6:ASCIItoHex	4	static
+General_Functions.c:237:6:check_bit	16	static
+General_Functions.c:319:6:handle_bit	16	static
+General_Functions.c:395:6:handle_bit32	16	static
+General_Functions.c:666:6:Copy_Array	32	static
+General_Functions.c:694:6:Toggle_Bool	16	static

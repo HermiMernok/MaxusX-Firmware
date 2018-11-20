@@ -1,0 +1,13 @@
+VisionMaster.c:20:12:bytes_available	24	static
+VisionMaster.c:28:13:consume_bytes	16	static
+VisionMaster.c:33:16:getbyte	16	static
+VisionMaster.c:38:10:vision_get_message	24	static
+VisionMaster.c:53:6:Vision_CAN_packet_handler	24	static
+VisionMaster.c:72:5:vision_process	24	static
+VisionMaster.c:116:5:vision_parse_message	48	static
+VisionMaster.c:299:16:find_by_CAN_ID	24	static
+VisionMaster.c:315:16:Add_new_Reader	24	static
+VisionMaster.c:359:9:vision_share_message	80	static
+VisionMaster.c:398:12:Vision_GetWRptr	16	static
+VisionMaster.c:403:13:APP_CAN_Vision_CAN_TX	24	static
+VisionMaster.c:408:13:APP_COM_Vision_COM_TX	16	static

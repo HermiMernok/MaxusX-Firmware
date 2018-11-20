@@ -1,0 +1,2 @@
+TCP.c:12:6:Ethernet_Handler	8	static
+TCP.c:20:6:Init_Ethernet	8	static

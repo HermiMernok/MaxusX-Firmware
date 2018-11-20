@@ -1,0 +1,6 @@
+ADPS9309.c:30:6:ADPS9309_ReadRegs	32	static
+ADPS9309.c:47:6:ADPS9309_WriteReg	16	static
+ADPS9309.c:60:9:ADPS9309_Init	24	static
+ADPS9309.c:98:6:ADPS9309_GetValues	32	static
+ADPS9309.c:125:7:ADPS9309_GetLux	32	static
+ADPS9309.c:173:6:AmbientSens_set_tune	16	static

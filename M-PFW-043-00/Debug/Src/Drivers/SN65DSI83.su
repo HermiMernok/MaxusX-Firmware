@@ -1,0 +1,3 @@
+SN65DSI83.c:21:9:SN65DSI83_ReadRegs	24	static
+SN65DSI83.c:31:9:SN65DSI83_WriteReg	16	static
+SN65DSI83.c:39:6:SN65DSI83_Send_Settings	16	static

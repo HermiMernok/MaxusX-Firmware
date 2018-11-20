@@ -1,0 +1,4 @@
+F769_SRAM.c:14:6:SRAM_Init	8	static
+F769_SRAM.c:146:9:BSP_SRAM_WriteData	24	static
+F769_SRAM.c:165:9:BSP_SRAM_ReadData	24	static
+F769_SRAM.c:184:9:BSP_SRAM_ReadData32	24	static

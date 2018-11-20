@@ -1,0 +1,6 @@
+VisionZoneInterface.c:17:6:send_zone_message	72	static
+VisionZoneInterface.c:58:9:get_zone_message_index	24	static
+VisionZoneInterface.c:78:6:add_zone_message	32	static
+VisionZoneInterface.c:102:6:reset_zone_message	16	static
+VisionZoneInterface.c:118:9:vision_zone_process	32	static
+VisionZoneInterface.c:158:6:zone_message_init_log	16	static

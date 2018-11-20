@@ -1,0 +1,4 @@
+F769_Timers.c:27:6:TIM3_Stop	8	static
+F769_Timers.c:45:6:TIM3_Start	8	static
+F769_Timers.c:60:6:TIM4_Stop	8	static
+F769_Timers.c:78:6:TIM4_Start	8	static

@@ -1,0 +1,3 @@
+F769_IO.c:137:6:IO_Input_Read	24	static
+F769_IO.c:169:6:IO_Input_ReadNormal	24	static
+F769_IO.c:195:6:IO_Output_control	16	static

@@ -1,0 +1,11 @@
+Transponders.c:24:16:get_tag	24	static
+Transponders.c:36:5:get_slot	32	static
+Transponders.c:80:6:re_insert_transp	16	static
+Transponders.c:94:5:log_uid	24	static
+Transponders.c:108:6:random_tag_generator	16	static
+Transponders.c:131:6:clear_transp_log	16	static
+Transponders.c:152:5:clean_transp_log	24	static
+Transponders.c:167:6:clear_transp	16	static
+Transponders.c:212:9:transp_type_check	16	static
+Transponders.c:220:6:transp_type_add	16	static
+Transponders.c:234:16:transp_filter	32	static

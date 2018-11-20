@@ -1,0 +1,11 @@
+list.c:75:6:vListInitialise	16	static
+list.c:95:6:vListInitialiseItem	16	static
+list.c:102:6:vListInsertEnd	24	static
+list.c:123:6:vListInsert	24	static
+list.c:181:24:uxListRemove	24	static
+list.c:218:5:pipe_init	24	static
+list.c:239:5:pipe_put	16	static
+list.c:261:5:pipe_push	16	static
+list.c:274:5:pipe_get	16	static
+list.c:289:5:pipe_discard	16	static
+list.c:309:5:pipe_peek	16	static

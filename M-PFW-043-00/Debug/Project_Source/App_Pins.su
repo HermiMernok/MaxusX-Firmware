@@ -1,0 +1,6 @@
+App_Pins.c:10:6:IO_App_Clear_Inputs	4	static
+App_Pins.c:68:6:IO_App_Init	8	static
+App_Pins.c:145:6:IO_RGB_Led	16	static
+App_Pins.c:271:6:IO_App_Read_Inputs	8	static
+App_Pins.c:342:6:IO_App_BTN_Blue	8	static
+App_Pins.c:362:6:IO_App_BTN_Red	8	static

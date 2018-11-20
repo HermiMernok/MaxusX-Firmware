@@ -1,0 +1,11 @@
+MCP23S17.c:85:6:MCP23S17_CS_LOW	16	static
+MCP23S17.c:106:6:MCP23S17_CS_HIGH	16	static
+MCP23S17.c:134:9:MCP23S17_SendByte	24	static
+MCP23S17.c:151:6:MCP23S17_CS_Init	32	static
+MCP23S17.c:219:10:MCP23S17_ReadID	24	static
+MCP23S17.c:243:9:MCP23S17_ReadByte	32	static
+MCP23S17.c:253:6:Get_ExpanderIO_Input_Bytes	8	static
+MCP23S17.c:282:6:Set_ExpanderIO_In_Flags	8	static
+MCP23S17.c:315:6:Set_ExpanderIO_Output_Bytes	8	static
+MCP23S17.c:376:6:Latch_IOExpander_Outputs	8	static
+MCP23S17.c:416:6:LED_TEST	16	static

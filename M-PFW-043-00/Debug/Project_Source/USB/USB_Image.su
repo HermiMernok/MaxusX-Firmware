@@ -1,0 +1,7 @@
+USB_Image.c:39:6:Check_Image_Count	8	static
+USB_Image.c:46:6:Flash_Erase_Blocks	80	static
+USB_Image.c:71:6:Update_Images_Now	72	static
+USB_Image.c:202:6:Explore_Disk_Images	888	static
+USB_Image.c:299:9:Image_Browser	904	static
+USB_Image.c:403:6:Do_Image	648	static
+USB_Image.c:433:6:Show_Image	552	static

@@ -1,0 +1,3 @@
+F769_I2C.c:10:6:I2C2_Init	8	static
+F769_I2C.c:15:6:I2C_BufferRead	40	static
+F769_I2C.c:23:6:I2C_ByteWrite	40	static

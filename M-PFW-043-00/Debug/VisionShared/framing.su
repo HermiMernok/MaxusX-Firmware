@@ -1,0 +1,6 @@
+framing.c:18:16:crc16	24	static
+framing.c:35:10:get_frame	32	static
+framing.c:51:6:check_frame_crc	24	static
+framing.c:65:6:check_frame	24	static
+framing.c:87:10:get_RF_frame	32	static
+framing.c:101:6:check_RF_frame_crc	80	static

@@ -1,0 +1,8 @@
+LF_TX.c:21:6:send_carrier	8	static
+LF_TX.c:26:6:pause_carrier	8	static
+LF_TX.c:31:17:getbitint	32	static
+LF_TX.c:42:10:makeCrc4	40	static
+LF_TX.c:56:8:makeCrc4Check	32	static
+LF_TX.c:67:5:LF_send_bits	32	static
+LF_TX.c:120:6:LF_send	4	static
+LF_TX.c:126:6:LF_form_packet	56	static

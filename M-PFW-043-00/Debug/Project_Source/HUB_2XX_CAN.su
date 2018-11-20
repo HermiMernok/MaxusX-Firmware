@@ -1,0 +1,5 @@
+HUB_2XX_CAN.c:19:6:HUB_2XX_Init	8	static
+HUB_2XX_CAN.c:26:6:HUB_2XX_Default	8	static
+HUB_2XX_CAN.c:33:6:HUB_2XX_message_Parser	16	static
+HUB_2XX_CAN.c:63:6:Transmit_HUB_2XX_messages	24	static
+HUB_2XX_CAN.c:96:6:HUB_2XX_Handler	8	static

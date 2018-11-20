@@ -1,0 +1,8 @@
+tcp_echoclient.c:102:6:tcp_echoclient_connect	16	static
+tcp_echoclient.c:136:14:tcp_echoclient_connected	40	static
+tcp_echoclient.c:202:14:tcp_send_data	40	static
+tcp_echoclient.c:279:14:tcp_echoclient_recv	32	static
+tcp_echoclient.c:350:13:tcp_echoclient_send	24	static
+tcp_echoclient.c:398:14:tcp_echoclient_poll	24	static
+tcp_echoclient.c:439:14:tcp_echoclient_sent	32	static
+tcp_echoclient.c:462:13:tcp_echoclient_connection_close	16	static

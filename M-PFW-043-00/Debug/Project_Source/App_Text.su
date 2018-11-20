@@ -1,0 +1,4 @@
+App_Text.c:22:6:TextToScreen	24	static
+App_Text.c:57:6:TextToScreen_SML	24	static
+App_Text.c:66:6:TextToScreen_MED	24	static
+App_Text.c:75:6:TextToScreen_LRG	24	static

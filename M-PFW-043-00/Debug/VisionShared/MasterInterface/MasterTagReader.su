@@ -1,0 +1,2 @@
+MasterTagReader.c:10:17:parse_message_UID	16	static
+MasterTagReader.c:15:6:parse_message_into_TAG	24	static
