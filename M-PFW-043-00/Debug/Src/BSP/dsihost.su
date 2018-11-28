@@ -1,3 +1,3 @@
 dsihost.c:61:6:MX_DSIHOST_DSI_Init	24	static
-dsihost.c:93:6:HAL_DSI_MspInit	24	static
-dsihost.c:109:6:HAL_DSI_MspDeInit	16	static
+dsihost.c:100:6:HAL_DSI_MspInit	24	static
+dsihost.c:116:6:HAL_DSI_MspDeInit	16	static

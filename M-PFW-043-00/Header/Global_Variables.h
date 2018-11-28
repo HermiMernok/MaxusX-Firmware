@@ -156,6 +156,8 @@ typedef enum
 //========== Public structs ============
 //======================================
 
+
+
 struct _IC_Flags
 {
 	bool		RTC_OK;

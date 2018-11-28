@@ -26,6 +26,7 @@ FIL file;
 DIR dir;
 
 
+
 //Global Variables
 extern USB_OTG_HCTypeDef  USB_OTG_Core;
 extern USBH_HandleTypeDef hUsbHostFS;
@@ -81,46 +82,45 @@ void Update_Images_Now(void)
 			Image_Count++;
 	}
 
-	//BSP_LCD_Clear(LCD_COLOR_BLACK);
-	//
-	//	sprintf(Feedback_buf, "Currently %d / %d images in flash", Image_Count, Number_Of_Images);
-	//	TextToScreen(0, 160, Feedback_buf, CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
+	BSP_LCD_Clear(LCD_COLOR_BLACK);
 
-	//if((Image_Count != Number_Of_Images) && (Image_Count != 0))
-	//	{
-	//TextToScreen_SML(0, 255, "Append new images, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+		sprintf(Feedback_buf, "Currently %d / %d images in flash", Image_Count, Number_Of_Images);
+		TextToScreen(0, 160, Feedback_buf, CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
 
-	//TextToScreen(1,30,"< APPEND", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
-	//	TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+	if((Image_Count != Number_Of_Images) && (Image_Count != 0))
+		{
+	TextToScreen_SML(0, 255, "Append new images, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+
+	TextToScreen(1,30,"< APPEND", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+		TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
 
 	//wait for response
-	//		while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
-	//		{
-	//			IO_App_Read_Inputs();
-	//		}
+			while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
+			{
+				IO_App_Read_Inputs();
+			}
 
-	//	if(Input_Flags.Button_1)
-	//	{
-	//	TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+		if(Input_Flags.Button_1)
+		{
+		TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 
 	//Erase blocks in flash
-	//		Flash_Erase_Blocks(200);
+		Flash_Erase_Blocks(200);
+			Image_Count = 0;
+			}
+		}
+		else if((Image_Count == Number_Of_Images) || ((Image_Count != Number_Of_Images) && (Image_Count == 0)))
+		{
+		TextToScreen_SML(0, 255, "Restart, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
-	//		Image_Count = 0;
-	//		}
-	//	}
-	//	else if((Image_Count == Number_Of_Images) || ((Image_Count != Number_Of_Images) && (Image_Count == 0)))
-	//	{
-	//		TextToScreen_SML(0, 255, "Restart, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-	//
-	//		TextToScreen(1,30,"< RESTART", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
-	//		TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
-	//
-	//		//wait for response
-	//		while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
-	//		{
-	//		IO_App_Read_Inputs();
-	//	}
+			TextToScreen(1,30,"< RESTART", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+			TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+
+			//wait for response
+			while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
+			{
+			IO_App_Read_Inputs();
+		}
 
 	//	if(Input_Flags.Button_1)
 	//	{
@@ -151,42 +151,16 @@ void Update_Images_Now(void)
 
 	//TextToScreen_SML (0, 255, "Updating Images!          ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 
-	//Update images
-	//	if(Image_Count == Number_Of_Images)
-	//{
+
+	if(Image_Count == Number_Of_Images)
+	{
 		Flash_Erase_Blocks(200);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_0);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_1);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_2);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_3);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_4);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_5);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_6);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_7);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_8);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_9);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_10);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_11);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_12);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_13);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_14);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_15);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_16);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_17);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_18);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_19);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_20);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_21);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_22);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_23);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_24);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_25);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_26);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_27);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_28);
-//	S29GL01GS_EraseBlock(&S29GL01GS, NOR_BLOCK_29);
-	Image_Browser(Images_Dir, Image_Count);
-	//	}
+		Image_Browser(Images_Dir, Image_Count);
+	}
+	else
+	{
+
+	}
 }
 
 

@@ -169,9 +169,14 @@ int main(void)
 
 		//TextToScreen_MED(10,10,"Light Sensor OK",LCD_COLOR_BLUE,LCD_COLOR_GRAY );
 		Delay(10);
-		//Color_Line_test();
+//		Color_Line_test();
 
-		TextToScreen_SML(10,10, "o", LCD_COLOR_BROWN,LCD_COLOR_BLACK);
+
+		BSP_LCD_SetTextColor(LCD_COLOR_GRAY);
+
+			//	BSP_LCD_FillRect(924,50,100,50);
+
+		//TextToScreen_SML(10,10, "o", LCD_COLOR_BROWN,LCD_COLOR_BLACK);
 
 		uint8_t text_buffer[100];
 
@@ -180,50 +185,55 @@ int main(void)
 //			sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
 //			TextToScreen_SML(10,i*24,text_buffer, Color_Wheel_Array[i], LCD_COLOR_BLACK);
 //		}
+		App_printImg(0,0, image[1].index);
 
-		for(int i =0 ; i <23 ; i++)
-			{
-				sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
-				TextToScreen_SML(10,i*24,text_buffer, LCD_COLOR_WHITE, Color_Wheel_Array[i]);
-			}
-
-	}
-
-
-	Init_Ethernet();
-
-	while (1)
-	{
-
-
-		/*=================================
-		 * Read all Inputs
-		 *================================*/
-		IO_App_Read_Inputs();
-
-		/*=================================
-		 * Handle User Inputs
-		 *================================*/
-		App_ACK_Handler();
-		if(App_ACK_CheckFlag(ACK_Down))
-		{
-			App_ACK_ButtonReleased (ACK_Down);
-			HAL_Delay(100);
-
-			tcp_echoclient_connect();
-
-		}
-		else
-		{
-
-		}
-
-		/*=================================
-		 *
-		 *================================*/
-		Ethernet_Handler();
+//		uint8_t Data;
+//		SN65DSI83_ReadRegs(&hi2c2, 0xE5, &Data, 1);
+//
+//		for(int i =0 ; i <23 ; i++)
+//			{
+//				sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
+//
+//				TextToScreen_SML(10,i*24,text_buffer, LCD_COLOR_WHITE, Color_Wheel_Array[i]);
+//			}
 
 	}
+
+
+	//Init_Ethernet();
+
+//	while (1)
+//	{
+//
+//
+//		/*=================================
+//		 * Read all Inputs
+//		 *================================*/
+//		IO_App_Read_Inputs();
+//
+//		/*=================================
+//		 * Handle User Inputs
+//		 *================================*/
+//		App_ACK_Handler();
+//		if(App_ACK_CheckFlag(ACK_Down))
+//		{
+//			App_ACK_ButtonReleased (ACK_Down);
+//			HAL_Delay(100);
+//
+//			tcp_echoclient_connect();
+//
+//		}
+//		else
+//		{
+//
+//		}
+//
+//		/*=================================
+//		 *
+//		 *================================*/
+//		Ethernet_Handler();
+App_printImg(0,0, IMG_BUTTON_UP);
+//	}
 	while (1)
 	{
 		/*=================================
@@ -304,38 +314,10 @@ int main(void)
 		 *==============================*/
 		App_USB_SM();
 
-		//	S29GL01GS_ReadBuffer(&S29GL01GS, &RxBuffer1[0], NOR_BLOCK_0, 6400);
-		//		LTDC_Switch_Active_Layer();
-
-		uint16_t read_array[220] = {0};
-		uint16_t read_array2[220] = {0};
-		////
-		BSP_SRAM_ReadData(LCD_FRAMEBUFFER1_ADDR,read_array,220);
-		BSP_SRAM_ReadData(LCD_FRAMEBUFFER2_ADDR,read_array2,220);
-
-		Delay(500);
-
-		BSP_LCD_SetTextColor(LCD_COLOR_RED);
-
-		BSP_LCD_FillRect(0,0,1000,580);
-
-		Delay(500);
-
-		BSP_LCD_SetTextColor(LCD_COLOR_GREEN);
-
-		BSP_LCD_FillRect(100,100,500,300);
-		BSP_LCD_FillRect(700,100,300,300);
-		Delay(500);
-		BSP_LCD_SetTextColor(LCD_COLOR_GRAY);
-
-		BSP_LCD_FillRect(200,100,500,300);
-		BSP_LCD_FillRect(500,100,300,300);
-		Delay(500);
-		BSP_LCD_SetTextColor(LCD_COLOR_BLUE);
-		BSP_LCD_FillRect(0,0,1000,580);
 
 
-		//App_printImg(900,500, (I);
+
+
 
 	}
 

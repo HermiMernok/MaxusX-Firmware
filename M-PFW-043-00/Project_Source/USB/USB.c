@@ -302,9 +302,13 @@ void USB_User_File_Explorer(void)
 			//Unlink the USB device associated with the latest used directory
 			FATFS_UnLinkDriver(Images_Dir);
 
+			while(!App_ACK_CheckFlag(ACK_Down))
+			{
+
+			}
+
 			TIM3_Start();
 			TIM4_Start();
-
 
 		}
 	//	else

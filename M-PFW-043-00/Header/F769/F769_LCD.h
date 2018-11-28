@@ -54,17 +54,17 @@ Author: 		H. du Plessis
 
 #include "Global_Variables.h"
 #include <string.h> /* use of memset() */
-
+#include "USB_Image.h"
 //======================================
 //============= Defines ================
 //======================================
 
-#define  VSA   100  /*!< Vertical start active time in units of lines */
-#define  VBP   150  /*!< Vertical Back Porch time in units of lines */
-#define  VFP   150 /*!< Vertical Front Porch time in units of lines */
+#define  VSA   10  /*!< Vertical start active time in units of lines */
+#define  VBP   70  /*!< Vertical Back Porch time in units of lines */
+#define  VFP   70 /*!< Vertical Front Porch time in units of lines */
 #define  HSA   100 /*!< Horizontal start active time in units of lcdClk */
-#define  HBP   140 /*!< Horizontal Back Porch time in units of lcdClk */
-#define  HFP   140  /*!< Horizontal Front Porch time in units of lcdClk */
+#define  HBP   160 /*!< Horizontal Back Porch time in units of lcdClk */
+#define  HFP   160  /*!< Horizontal Front Porch time in units of lcdClk */
 
 
 //======================================
@@ -86,7 +86,6 @@ Author: 		H. du Plessis
 	LCD_ERROR  =    0x01,
 	LCD_TIMEOUT =   0x02
  } LCD_StateTypeDef;
-
 
  //======================================
  //======== Public Functions ============

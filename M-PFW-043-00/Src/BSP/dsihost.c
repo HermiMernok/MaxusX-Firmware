@@ -51,7 +51,7 @@
 #include "dsihost.h"
 
 /* USER CODE BEGIN 0 */
-
+  DSI_PHY_TimerTypeDef dsiPhyInit;
 /* USER CODE END 0 */
 
 DSI_HandleTypeDef hdsi;
@@ -86,7 +86,14 @@ void MX_DSIHOST_DSI_Init(void)
 	{
 		_Error_Handler(__FILE__, __LINE__);
 	}
-
+	  /* Configure the D-PHY Timings */
+	  dsiPhyInit.ClockLaneHS2LPTime = 0x14;
+	  dsiPhyInit.ClockLaneLP2HSTime = 0x14;
+	  dsiPhyInit.DataLaneHS2LPTime = 0x0A;
+	  dsiPhyInit.DataLaneLP2HSTime = 0x0A;
+	  dsiPhyInit.DataLaneMaxReadTime = 0x00;
+	  dsiPhyInit.StopWaitTime = 0x0;
+	  HAL_DSI_ConfigPhyTimer(&hdsi, &dsiPhyInit);
 	/* USER CODE END 0 */
 }
 

@@ -1,8 +1,0 @@
-core_cm7.h:1998:22:NVIC_SystemReset	4	static
-USB_App.c:31:6:Jump_to_application	16	static
-USB_App.c:51:6:UpdateBootloader	264	static
-USB_App.c:209:6:FileName_Check	40	static
-USB_App.c:310:6:MX_Flash_Init	4	static
-USB_App.c:319:6:ProgramFlashMemory	32	static
-USB_App.c:386:6:Write_Application_Sanity	24	static
-USB_App.c:392:6:Application_Sanity_Check	24	static
