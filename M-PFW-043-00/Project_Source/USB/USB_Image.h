@@ -16,9 +16,10 @@
 void Disk_Explorer(void);
 void Update_Images_Now(void);
 
+
 #define AM_MASK		0x3F	/* Mask of defined bits */
 
-bool Explore_Disk_Images(char* path, uint8_t recu_level);
+bool Explore_Disk_Images(char* path);
 uint8_t Image_Browser (char* path, uint8_t Image_Count);
 void Show_Image(uint16_t x, uint16_t y, uint16_t index);
 void WriteFile(void);

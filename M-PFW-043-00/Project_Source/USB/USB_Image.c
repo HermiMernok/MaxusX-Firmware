@@ -11,39 +11,36 @@
 #include "fatfs.h"
 #include "ff.h"
 
-/****************************************************************/
-/**
- * @brief
- * @param
- *   This parameter can be one of following parameters:
- *     @arg
- * @retval None
- */
-/****************************************************************/
-/***********************************************/
-//Local Variables
+
+//=== Local Variables ===
 FIL file;
 DIR dir;
 
-
-
-//Global Variables
+//=== Global Variables ===
 extern USB_OTG_HCTypeDef  USB_OTG_Core;
 extern USBH_HandleTypeDef hUsbHostFS;
 extern ApplicationTypeDef Appli_state;
 extern NOR_HandleTypeDef S29GL01GS;
 
 char Image_number[50] 		 = {0};
-/****************************************************************/
 
-/****************************************************************/
+//=== Functions ===
+
+/**===============================================
+ * @brief  Check the number of images
+ * @param  None
+ * @retval None
+ ===============================================*/
 void Check_Image_Count(void)
 {
-	Explore_Disk_Images("0:/", 0);
-
-
+	Explore_Disk_Images("0:/");
 }
 
+/**===============================================
+  * @brief  Erase blocks in Flash
+  * @param  Blocks - number of blocks to be erased starting from block 0.
+  * @retval None
+  ===============================================*/
 void Flash_Erase_Blocks (uint8_t Blocks)
 {
 	char Progress[50];
@@ -54,21 +51,19 @@ void Flash_Erase_Blocks (uint8_t Blocks)
 	for(uint8_t i = 0; i < Blocks; i++)
 	{
 
-		sprintf(Progress,"Erasing Block %d / %d", i,Blocks);
-		TextToScreen_SML (300, 255, Progress,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+		sprintf(Progress,"             Erasing Block %d / %d              ", i,Blocks);
+		TextToScreen(0, 255, Progress,CENTER_MODE , LCD_COLOR_WHITE,LCD_COLOR_BLACK,Text_Small);
 		S29GL01GS_EraseBlock(&S29GL01GS, Start_Addr);
 		Start_Addr += 0x20000;
-
 	}
-
-
 }
 
-
-/****************************************************************/
-
-/****************************************************************/
-/****************************************************************/
+/**===============================================
+  * @brief  Statemachine to update images. Determine if number of image are
+  * correct and wait for user input.
+  * @param  None
+  * @retval None
+  ===============================================*/
 void Update_Images_Now(void)
 {
 	uint8_t Image_Count = 0;
@@ -79,83 +74,118 @@ void Update_Images_Now(void)
 		void *Image_Location = (void*)(Bank1_NOR1_ADDR + image[i].address);
 
 		if(BSP_LCD_ValidateBitmap(image[i].X_size, image[i].Y_size, Image_Location))
+		{
 			Image_Count++;
+		}
 	}
 
 	BSP_LCD_Clear(LCD_COLOR_BLACK);
 
-		sprintf(Feedback_buf, "Currently %d / %d images in flash", Image_Count, Number_Of_Images);
-		TextToScreen(0, 160, Feedback_buf, CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
+	sprintf(Feedback_buf, "Currently %d / %d images in flash", Image_Count, Number_Of_Images);
+	TextToScreen(0, 160, Feedback_buf, CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
 
 	if((Image_Count != Number_Of_Images) && (Image_Count != 0))
-		{
-	TextToScreen_SML(0, 255, "Append new images, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+	{
+		TextToScreen_SML(0, 255, "Append new images, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 
-	TextToScreen(1,30,"< APPEND", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+		TextToScreen(1,30,"< APPEND", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
 		TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
 
-	//wait for response
-			while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
-			{
-				IO_App_Read_Inputs();
-			}
-
-		if(Input_Flags.Button_1)
+		//wait for response
+		while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
 		{
-		TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
-
-	//Erase blocks in flash
-		Flash_Erase_Blocks(200);
-			Image_Count = 0;
-			}
-		}
-		else if((Image_Count == Number_Of_Images) || ((Image_Count != Number_Of_Images) && (Image_Count == 0)))
-		{
-		TextToScreen_SML(0, 255, "Restart, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-
-			TextToScreen(1,30,"< RESTART", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
-			TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
-
-			//wait for response
-			while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
-			{
 			IO_App_Read_Inputs();
 		}
 
-	//	if(Input_Flags.Button_1)
-	//	{
-	//		TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+		if(Input_Flags.Button_1)
+		{
+			TextToScreen(0, 200, "Erasing flash. . .", CENTER_MODE, LCD_COLOR_WHITE,LCD_COLOR_BLACK,Text_Small);
 
-	//Erase blocks in flash
-	//		Flash_Erase_Blocks(200);
+			//Erase blocks in flash
+			Flash_Erase_Blocks(200);
+			Image_Count = 0;
+		}
+	}
+	else if((Image_Count == Number_Of_Images) || ((Image_Count != Number_Of_Images) && (Image_Count == 0)))
+	{
+		TextToScreen(0, 255, "Restart, or erase and update all? ",CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
 
-	//		Image_Count = 0;
-	//	}
-	//	else
-	//	{
-	/* Software reset */
-	//			NVIC_SystemReset();
-	//		}
-	//	}
-	//	else
-	//	{
-	//	TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 
-	//Erase blocks in flash
-	//Flash_Erase_Blocks(200);
+		TextToScreen(BSP_LCD_X_Size-200,BSP_LCD_Y_Size-100," RESTART >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+		TextToScreen(BSP_LCD_X_Size-150,100,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
 
-	//		Image_Count = 0;
-	//}
+		//wait for response
+		while((!Input_Flags.Button_1) && (!Input_Flags.Button_4))
+		{
+			IO_App_Read_Inputs();
+		}
 
-	//	BSP_LCD_Clear(LCD_COLOR_BLACK);
+		if(Input_Flags.Button_1)
+		{
+			TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 
-	//TextToScreen_SML (0, 255, "Updating Images!          ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+			//Erase blocks in flash
+			Flash_Erase_Blocks(200);
+			Image_Browser(Images_Dir, Image_Count);
+			Image_Count = 0;
+		}
+		else
+		{
+			/* Software reset */
+			NVIC_SystemReset();
+		}
+	}
+	else
+	{
+		TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+
+		//Erase blocks in flash
+		Flash_Erase_Blocks(200);
+
+		Image_Count = 0;
+	}
+
+	BSP_LCD_Clear(LCD_COLOR_BLACK);
+
+	TextToScreen_SML (0, 255, "Updating Images!          ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 
 
 	if(Image_Count == Number_Of_Images)
 	{
-		Flash_Erase_Blocks(200);
+		TextToScreen_SML(0, 255, "Restart, or erase and update all? ", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+
+		TextToScreen(1,30,"< RESTART", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+		TextToScreen(360,30,"ERASE >", LEFT_MODE, LCD_COLOR_BLACK, LCD_COLOR_WHITE, Text_Large);
+
+		//wait for response
+		while((!Input_Flags.Button_1) && (!Input_Flags.Button_3))
+		{
+			IO_App_Read_Inputs();
+		}
+
+		if(Input_Flags.Button_1)
+		{
+			TextToScreen_SML (0, 255, "Erasing flash. . .                     ",LCD_COLOR_WHITE,LCD_COLOR_BLACK);
+
+			//Erase blocks in flash
+			Flash_Erase_Blocks(200);
+
+			Image_Count = 0;
+		}
+		else
+		{
+			/* Software reset */
+			NVIC_SystemReset();
+		}
 		Image_Browser(Images_Dir, Image_Count);
+
+		TextToScreen(0, 255, "Press any key to restart the unit. ",CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Large);
+
+		while((!Input_Flags.Button_1) && (!Input_Flags.Button_4))
+		{
+			IO_App_Read_Inputs();
+		}
+
 	}
 	else
 	{
@@ -164,16 +194,12 @@ void Update_Images_Now(void)
 }
 
 
-
-/****************************************************************/
-/**
- * @brief  Explore_Disk
- *         Displays disk content
- * @param  path: pointer to root path
- * @retval None
- */
-/****************************************************************/
-bool Explore_Disk_Images(char* path, uint8_t recu_level)
+/**===============================================
+  * @brief  explore disk content
+  * @param  path: pointer to root path
+  * @retval None
+  ===============================================*/
+bool Explore_Disk_Images(char* path)
 {
 	FRESULT res;
 	FILINFO fno;
@@ -260,16 +286,11 @@ bool Explore_Disk_Images(char* path, uint8_t recu_level)
 		return false;
 }
 
-
-
-/****************************************************************/
-/**
- * @brief  Image Browser
- *         Browse Images on disk
- * @param  path: pointer to root path
- * @retval None
- */
-/****************************************************************/
+/**===============================================
+  * @brief  Browse Images on disk
+  * @param  path: pointer to root path
+  * @retval None
+  ===============================================*/
 uint8_t Image_Browser (char* path, uint8_t Image_Count)
 {
 	FRESULT res;
@@ -372,9 +393,13 @@ uint8_t Image_Browser (char* path, uint8_t Image_Count)
 
 
 
-/****************************************************************/
-/****************************************************************/
-void Do_Image(char *FileName, uint16_t imagenumber)
+/**===============================================
+  * @brief Store a image onto the flash and display
+  * @param fileName: File name of image
+  * @param imageNumber: Number of image to be display
+  * @retval None
+  ===============================================*/
+void Do_Image(char *fileName, uint16_t imageNumber)
 {
 	FRESULT res;
 	FATFS mynewdiskFatFs;
@@ -383,27 +408,23 @@ void Do_Image(char *FileName, uint16_t imagenumber)
 	//String operations to add directory to the file name
 	strcpy(FileDir, Images_Dir);
 	strcat(FileDir, "/");
-	strcat(FileDir,FileName);
+	strcat(FileDir,fileName);
 
 	//Open image file
 	res = f_open(&file, FileDir, FA_OPEN_EXISTING | FA_READ);
 
 	//Load image data into internal flash memory
-	Show_Image(0, 0, imagenumber);
+	Show_Image(0, 0, imageNumber);
 
 	f_close(&file);
 }
 
 
-
-/****************************************************************/
-/**
- * @brief  Show and Save Image
- *         Displays BMP image
- * @param  Address -> Block in NOR Flash to save image to
- * @retval None
- *
- */
+/**===============================================
+  * @brief Display BMP image
+  * @param Address: Block in NOR Flash to save image to
+  * @retval None
+  ===============================================*/
 void Show_Image(uint16_t x, uint16_t y, uint16_t index)
 {
 
@@ -416,12 +437,17 @@ void Show_Image(uint16_t x, uint16_t y, uint16_t index)
 	uint16_t WRcount = 0;
 	HAL_NOR_StatusTypeDef Result;
 
+	int Total_Count = image[index].size/IMAGE_BUFFER_SIZE;
+	char Feedback_buf[50] = {0};
+	sprintf(Feedback_buf, "Number: %d Width: %d pixels Height: %d pixels)",index ,image[index].X_size , image[index].Y_size);
+	TextToScreen(0, 100, Feedback_buf, CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
+
 	//LCD_SetDisplayArea(x, x + x_size, y, y + y_size);
 	//LCD_WriteCommand(CMD_WR_MEMSTART);
 
 	/* Bypass Bitmap header  - Bytes */
 	res = f_lseek(&file, 0);			//66
-
+	int count = 0;
 	if(res == FR_OK)
 	{
 		while (hUsbHostFS.device.is_connected == 1)
@@ -435,10 +461,18 @@ void Show_Image(uint16_t x, uint16_t y, uint16_t index)
 				break;
 			}
 
+			char Count_buf[50] = {0};
+
 			for(i = 0 ; i < IMAGE_BUFFER_SIZE; i+= 2)
 			{
 				dataBuf[i/2] = ((uint16_t)Image_Buf[i+1] << 8) + ((uint16_t)Image_Buf[i]);
 			}
+
+
+			sprintf(Count_buf, "(%d / %d)", (int)((float)count/(float)Total_Count*100), 100);
+			TextToScreen(0, 160, Count_buf, CENTER_MODE, LCD_COLOR_WHITE, LCD_COLOR_BLACK, Text_Small);
+
+			count ++;
 			Result = S29GL01GS_WriteBuffer(&S29GL01GS, dataBuf, address, IMAGE_BUFFER_SIZE / 2);
 			//			S29GL01GS_ReadBuffer(&S29GL01GS, dataBuf1, address, IMAGE_BUFFER_SIZE / 2);
 			address += (IMAGE_BUFFER_SIZE); 	//NOR  note: * 2 was corrected

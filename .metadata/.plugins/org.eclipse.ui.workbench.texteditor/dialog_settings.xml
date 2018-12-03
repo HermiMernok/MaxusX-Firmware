@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="_IC_Flags" key="selection"/>
+		<item value="Switch" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="_IC_Flags"/>
-			<item value="app_"/>
-			<item value="666"/>
-			<item value="Dithering"/>
-			<item value="DMA2D_OPFCCR"/>
-			<item value="Dither"/>
-			<item value="LL_FillBuffer2"/>
+			<item value="switch"/>
 			<item value="LL_ConvertLineToARGB8888"/>
+			<item value="LL_ConvertLineToRGB565"/>
+			<item value="j"/>
+			<item value="WHILE"/>
+			<item value="Do_Image"/>
+			<item value="Show_Image"/>
+			<item value="delay"/>
 		</list>
 		<list key="replacehistory">
 		</list>

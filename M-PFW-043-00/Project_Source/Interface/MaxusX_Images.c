@@ -92,7 +92,7 @@ const image_t image[Number_Of_Images + 1] =
 
 		{ 	      0    ,    0      ,    0  ,         0     ,       0 	},		//dummy data, there is no index 0
 
-		{   IMG_01_Size,   BUTTON_SIZE_X     ,   BUTTON_SIZE_Y ,   IMG_01_Addr , 	IMG_BUTTON_UP  },
+		{   IMG_01_Size,   LG_LOGO_SIZE_X     ,   LG_LOGO_SIZE_Y ,   IMG_01_Addr , 	IMG_BUTTON_UP  },
 
 
 };

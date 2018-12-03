@@ -161,43 +161,43 @@ int main(void)
 	extern UART_HandleTypeDef huartx[COMn];
 
 
-	while (1)
-	{
-		BSP_LCD_SetTextColor(LCD_COLOR_DARKGRAY);
-		BSP_LCD_FillRect(10,580,2,2);
-		__HAL_IWDG_RELOAD_COUNTER(&hiwdg); //Reload Watchdog -- Feed the dog
-
-		//TextToScreen_MED(10,10,"Light Sensor OK",LCD_COLOR_BLUE,LCD_COLOR_GRAY );
-		Delay(10);
-//		Color_Line_test();
-
-
-		BSP_LCD_SetTextColor(LCD_COLOR_GRAY);
-
-			//	BSP_LCD_FillRect(924,50,100,50);
-
-		//TextToScreen_SML(10,10, "o", LCD_COLOR_BROWN,LCD_COLOR_BLACK);
-
-		uint8_t text_buffer[100];
-
-//		for(int i =0 ; i <23 ; i++)
-//		{
-//			sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
-//			TextToScreen_SML(10,i*24,text_buffer, Color_Wheel_Array[i], LCD_COLOR_BLACK);
-//		}
-		App_printImg(0,0, image[1].index);
-
-//		uint8_t Data;
-//		SN65DSI83_ReadRegs(&hi2c2, 0xE5, &Data, 1);
+//	while (1)
+//	{
+//		BSP_LCD_SetTextColor(LCD_COLOR_DARKGRAY);
+//		BSP_LCD_FillRect(10,580,2,2);
+//		__HAL_IWDG_RELOAD_COUNTER(&hiwdg); //Reload Watchdog -- Feed the dog
 //
-//		for(int i =0 ; i <23 ; i++)
-//			{
-//				sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
+//		//TextToScreen_MED(10,10,"Light Sensor OK",LCD_COLOR_BLUE,LCD_COLOR_GRAY );
+//		Delay(10);
+////		Color_Line_test();
 //
-//				TextToScreen_SML(10,i*24,text_buffer, LCD_COLOR_WHITE, Color_Wheel_Array[i]);
-//			}
-
-	}
+//
+//		BSP_LCD_SetTextColor(LCD_COLOR_GRAY);
+//
+//			//	BSP_LCD_FillRect(924,50,100,50);
+//
+//		//TextToScreen_SML(10,10, "o", LCD_COLOR_BROWN,LCD_COLOR_BLACK);
+//
+//		uint8_t text_buffer[100];
+//
+////		for(int i =0 ; i <23 ; i++)
+////		{
+////			sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
+////			TextToScreen_SML(10,i*24,text_buffer, Color_Wheel_Array[i], LCD_COLOR_BLACK);
+////		}
+//		//App_printImg(0,0, image[1].index);
+//
+////		uint8_t Data;
+////		SN65DSI83_ReadRegs(&hi2c2, 0xE5, &Data, 1);
+////
+////		for(int i =0 ; i <23 ; i++)
+////			{
+////				sprintf(text_buffer, "%d Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod", i);
+////
+////				TextToScreen_SML(10,i*24,text_buffer, LCD_COLOR_WHITE, Color_Wheel_Array[i]);
+////			}
+//
+//	}
 
 
 	//Init_Ethernet();

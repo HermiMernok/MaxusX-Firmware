@@ -1,0 +1,16 @@
+F769_UART.c:33:6:UART_Init	16	static
+F769_UART.c:64:6:UART_DMA_Init	16	static
+F769_UART.c:80:6:HAL_UART_MspInit	64	static
+F769_UART.c:246:6:HAL_UART_MspDeInit	16	static
+F769_UART.c:377:6:DMA_UART_COM_EXP1_RX	24	static
+F769_UART.c:434:6:DMA_UART_External_RX	24	static
+F769_UART.c:498:6:DMA_UART_RF_RX	24	static
+F769_UART.c:560:6:DMA_UART_RF_TX	24	static
+F769_UART.c:619:6:Uart_Clear_DMA_TX	8	static
+F769_UART.c:640:6:Uart_Clear_DMA_RX	8	static
+F769_UART.c:675:6:USART_SendString	16	static
+F769_UART.c:692:6:USART_SendByte	16	static
+F769_UART.c:709:6:USART_SendArray	16	static
+F769_UART.c:714:6:APP_COM_Vision_COM_TX	24	static
+F769_UART.c:727:6:Check_TX_done	8	static
+F769_UART.c:740:6:Check_RX_done	8	static

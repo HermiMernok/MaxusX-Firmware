@@ -52,7 +52,7 @@ static void DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c);
 static void FillTriangle(uint16_t x1, uint16_t x2, uint16_t x3, uint16_t y1, uint16_t y2, uint16_t y3);
 static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t OffLine, uint32_t ColorIndex);
 static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize,uint32_t OffLine, uint32_t ColorMode);
-static void LL_ConvertLineToRGB565(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode);
+static void LL_ConvertLineToRGB565(void *pSrc, void *pDst, uint32_t xSize,uint32_t ySize, uint32_t ColorMode);
 
 static enum framebuffer active = FRAMEBUFFER1;
 
@@ -379,24 +379,24 @@ void BSP_LCD_ClearStringLine(uint32_t Line)
 
 void LTDC_Switch_Active_Layer()
 {
-	//	uint8_t value = BSP_LCD_ActiveLayer();
-	//
-	//	while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS))
-	//	{
-	//
-	//	}
-	//	BSP_LCD_SetLayerVisible(value, DISABLE);
-	//
-	//	if (value == 0)
-	//	{
-	//		BSP_LCD_SelectLayer(1);
-	//		BSP_LCD_SetLayerVisible(1, ENABLE);
-	//	}
-	//	else
-	//	{
-	//		BSP_LCD_SelectLayer(0);
-	//		BSP_LCD_SetLayerVisible(0, ENABLE);
-	//	}
+		uint8_t value = BSP_LCD_ActiveLayer();
+
+		while (!(LTDC->CDSR & LTDC_CDSR_VSYNCS))
+		{
+
+		}
+		BSP_LCD_SetLayerVisible(value, DISABLE);
+
+		if (value == 0)
+		{
+			BSP_LCD_SelectLayer(1);
+			BSP_LCD_SetLayerVisible(1, ENABLE);
+		}
+		else
+		{
+			BSP_LCD_SelectLayer(0);
+			BSP_LCD_SetLayerVisible(0, ENABLE);
+		}
 }
 
 /**
@@ -800,27 +800,29 @@ void BSP_LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t* pbmp)
 	if ((bit_pixel/8) == 2)	//RGB565 Pixel Format
 	{
 		/* Bypass the bitmap header */
-		pbmp += (index + (width * (height - 1) * (bit_pixel/8)));
+		pbmp += index  ;
 
 		/* Convert picture to ARGB8888 pixel format */
-		for(index=0; index < height; index++)
-		{
+		//uint8_t index_increment = height/5;
+	//	for(index=0; index < height; index+=index_increment)
+	//	{
 
 			/* Draw Image */
-			LL_ConvertLineToRGB565((uint32_t *)pbmp, (uint32_t *)address, width, input_color_mode);
-
+	//	LTDC_Switch_Active_Layer();
+			LL_ConvertLineToRGB565((uint32_t *)pbmp, (uint32_t *)address, width,height, input_color_mode);
+			LTDC_Switch_Active_Layer();
 			/* Increment the source and destination buffers */
-			address+=  (BSP_LCD_GetXSize()*2);
-			pbmp -= width*(bit_pixel/8);
-		}
+		//	address+=  (BSP_LCD_GetXSize()*2)*index_increment;
+		//	pbmp += width*(bit_pixel/8)*index_increment;
+		//}
 
 		return true;
 	}
-	else
-	{
-		TextToScreen(Xpos, Ypos, "IMAGE FAIL" ,LEFT_MODE, LCD_COLOR_RED, LCD_COLOR_WHITE, Text_Medium);
-		return false;
-	}
+//	else
+//	{
+//		TextToScreen(Xpos, Ypos, "IMAGE FAIL" ,LEFT_MODE, LCD_COLOR_RED, LCD_COLOR_WHITE, Text_Medium);
+//		return false;
+//	}
 }
 uint32_t Image[1] = {0};
 
@@ -1429,7 +1431,7 @@ static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uin
  * @param  xSize: Buffer width
  * @param  ColorMode: Input color mode
  */
-static void LL_ConvertLineToRGB565(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode)
+static void LL_ConvertLineToRGB565(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize, uint32_t ColorMode)
 {
 	/* Configure the DMA2D Mode, Color Mode and output offset */
 	hdma2d_discovery.Init.Mode         = DMA2D_M2M_PFC;
@@ -1453,7 +1455,7 @@ static void LL_ConvertLineToRGB565(void *pSrc, void *pDst, uint32_t xSize, uint3
 	{
 		if(HAL_DMA2D_ConfigLayer(&hdma2d_discovery, 1) == HAL_OK)
 		{
-			if (HAL_DMA2D_Start(&hdma2d_discovery, (uint32_t)pSrc, (uint32_t)pDst, xSize, 1) == HAL_OK)
+			if (HAL_DMA2D_Start(&hdma2d_discovery, (uint32_t)pSrc, (uint32_t)pDst, xSize, ySize) == HAL_OK)
 			{
 				/* Polling For DMA transfer */
 				HAL_DMA2D_PollForTransfer(&hdma2d_discovery, 100);

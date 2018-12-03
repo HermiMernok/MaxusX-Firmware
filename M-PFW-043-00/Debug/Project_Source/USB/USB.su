@@ -9,10 +9,7 @@ USB.c:139:6:USB_Core_Unsupported_Device	4	static
 USB.c:151:6:USB_Core_Speed_Detected	16	static
 USB.c:191:6:USB_Core_FAT_Error	4	static
 USB.c:204:6:USB_Core_FAT_Disk_Protected	4	static
-USB.c:267:6:USB_User_File_Reader	4	static
-USB.c:279:6:USB_User_File_Explorer	8	static
-USB.c:398:6:User_DataLog_Extraction_USB	4	static
-USB.c:509:6:User_Parameter_Upload_USB	4	static
-USB.c:597:6:User_Parameter_Extraction_USB	4	static
-USB.c:651:6:USB_User_File_Writer	4	static
-USB.c:671:6:App_USB_SM	8	static
+USB.c:221:6:USB_User_File_Reader	4	static
+USB.c:233:6:USB_User_File_Explorer	16	static
+USB.c:289:6:USB_User_File_Writer	4	static
+USB.c:309:6:App_USB_SM	8	static

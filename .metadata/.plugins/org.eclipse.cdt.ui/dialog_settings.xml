@@ -7,6 +7,10 @@
 		<item value="330" key="DIALOG_X_ORIGIN"/>
 		<item value="236" key="DIALOG_Y_ORIGIN"/>
 	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
+		<item value="180" key="size.height"/>
+		<item value="384" key="size.width"/>
+	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 	<section name="PDOMSearchPage">
@@ -25,5 +29,7 @@
 	<section name="completion_proposal_size">
 		<item value="253" key="size.y"/>
 		<item value="355" key="size.x"/>
+		<item value="221" key="contextSelector.size.y"/>
+		<item value="331" key="contextSelector.size.x"/>
 	</section>
 </section>

@@ -1,0 +1,4 @@
+F769_LCD.c:52:18:DSI_Init	24	static
+F769_LCD.c:127:18:LTDC_Init	8	static
+F769_LCD.c:165:6:LCD_Reset	8	static
+F769_LCD.c:179:18:LCD_Init	8	static
