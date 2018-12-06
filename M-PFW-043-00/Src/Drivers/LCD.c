@@ -32,21 +32,27 @@ Author: 		H. du Plessis
  ******************************************************************************
  */
 
+
+//=== Includes ===
 #include <LCD.h>
 
+//=== Defines ===
 
 #define ABS(X)                 ((X) > 0 ? (X) : -(X))
 
 #define POLY_X(Z)              ((int32_t)((Points + (Z))->X))
 #define POLY_Y(Z)              ((int32_t)((Points + (Z))->Y))
 
+
+//=== Variables ===
+
 DMA2D_HandleTypeDef hdma2d_discovery;
 LTDC_HandleTypeDef  hltdc_discovery;
-
-
-
 static uint8_t  ActiveLayer = LTDC_ACTIVE_LAYER_BACKGROUND;
 static LCD_DrawPropTypeDef DrawProp[LTDC_MAX_LAYER_NUMBER];
+static enum framebuffer active = FRAMEBUFFER1;
+
+//=== Function Prototypes ===
 
 static void DrawChar(uint16_t Xpos, uint16_t Ypos, const uint8_t *c);
 static void FillTriangle(uint16_t x1, uint16_t x2, uint16_t x3, uint16_t y1, uint16_t y2, uint16_t y3);
@@ -54,7 +60,6 @@ static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint3
 static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ySize,uint32_t OffLine, uint32_t ColorMode);
 static void LL_ConvertLineToRGB565(void *pSrc, void *pDst, uint32_t xSize,uint32_t ySize, uint32_t ColorMode);
 
-static enum framebuffer active = FRAMEBUFFER1;
 
 void LTDC_switch_framebuffer(void)
 {
@@ -810,7 +815,7 @@ void BSP_LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t* pbmp)
 			/* Draw Image */
 	//	LTDC_Switch_Active_Layer();
 			LL_ConvertLineToRGB565((uint32_t *)pbmp, (uint32_t *)address, width,height, input_color_mode);
-			LTDC_Switch_Active_Layer();
+			//LTDC_Switch_Active_Layer();
 			/* Increment the source and destination buffers */
 		//	address+=  (BSP_LCD_GetXSize()*2)*index_increment;
 		//	pbmp += width*(bit_pixel/8)*index_increment;
@@ -1197,7 +1202,7 @@ void BSP_LCD_DrawPixel(uint16_t Xpos, uint16_t Ypos, uint32_t RGB_Code)
 
 	/* Write data value to all SDRAM memory */
 	//  *(__IO uint16_t*) (hltdc_discovery.LayerCfg[ActiveLayer].FBStartAdress + (2*(Ypos*BSP_LCD_GetXSize() + Xpos))) = RGBConvert(R,G,B);
-	  *(__IO uint32_t*) (hltdc_discovery.LayerCfg[ActiveLayer].FBStartAdress + (2*(Ypos*BSP_LCD_GetXSize() + Xpos))) = RGBConvert(R,G,B);
+	  *(__IO uint16_t*) (hltdc_discovery.LayerCfg[ActiveLayer].FBStartAdress + (2*(Ypos*BSP_LCD_GetXSize() + Xpos))) = RGBConvert(R,G,B);
 	  uint32_t test = RGBConvert(R,G,B);
 
 }

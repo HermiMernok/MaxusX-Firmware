@@ -1,21 +1,12 @@
 /*
- * Commander_Images.c
+ * USB_Image.c
  *
- *  Created on: Jun 24, 2015
- *      Author: JacoOlivier
+ *  Created on: 20 November, 2018
+ *      Author: Hermi du Plessis
  */
 
 #include "MaxusX_Images.h"
-/****************************************************************/
-/**
- * @brief
- * @param
- *   This parameter can be one of following parameters:
- *     @arg
- * @retval None
- */
-/****************************************************************/
-/***********************************************/
+
 //Local Variables
 //Global Variables
 uint8_t Flash_Disk_ImageCount = 0;
@@ -23,7 +14,9 @@ uint8_t Image_Buf[IMAGE_BUFFER_SIZE];
 
 #define DMA_MAX_SIZE 0xFF
 
-//images configuration stored in ROM
+
+
+//=== Images configuration array stored in ROM ===
 //const image_t image[Number_Of_Images + 1] =
 //{
 //		//               size		X		    Y		 address		index
@@ -86,6 +79,8 @@ uint8_t Image_Buf[IMAGE_BUFFER_SIZE];
 //
 //};
 
+//TODO Test. uncommend above Array and remove below array.
+
 const image_t image[Number_Of_Images + 1] =
 {
 		//               size		X		    Y		 address		index
@@ -96,43 +91,5 @@ const image_t image[Number_Of_Images + 1] =
 
 
 };
-
-/**
- * @brief			Fetches image from flash, and puts it in
- * @param x
- * @param y
- * @param index
- */
-void DisplayImage(uint16_t x, uint16_t y, uint16_t index)
-{
-
-	uint32_t size = image[index].size;
-	uint32_t address = image[index].address;
-	uint32_t count = 0;
-
-	///////////////////////////
-	//LCD_flip_for_BMP();
-	///////////////////////////
-	//	LCD_SetDisplayArea(x, x + image[index].X_size-1, y, y + image[index].Y_size -1);
-	//	LCD_WriteCommand(CMD_WR_MEMSTART);
-
-	if (size > (DMA_MAX_SIZE * 2))
-	{
-		do
-		{
-			NOR_DMAImageTransfer(address, DMA_MAX_SIZE * 2, count);
-			size -= (DMA_MAX_SIZE * 2);
-			address += (DMA_MAX_SIZE * 2); // halfword = 2 bytes
-			count++;
-		} while (size > (DMA_MAX_SIZE * 2));
-	}
-	//framebuf2 = (u16*) (test);
-	NOR_DMAImageTransfer(address, size, count);
-	//NOR_DMAImageTransfer(address, (size));
-
-	///////////////////////////
-	//SetOrientation(DISP_ORIENTATION);
-	///////////////////////////
-}
 
 

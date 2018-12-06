@@ -81,13 +81,3 @@ void TextToScreen_LRG(int x, int y, char *textString, uint32_t FColor, uint32_t 
 	BSP_LCD_DisplayStringAt(x, y, textString, LEFT_MODE);
 }
 
-
-//void TextToScreen_SML_Center(int x, int y, char *textString, uint32_t FColor, uint32_t BColor)
-//{
-//	BSP_LCD_SetBackColor(BColor);
-//	BSP_LCD_SetTextColor(FColor);
-//	BSP_LCD_SetFont(&Font16);
-//
-//	BSP_LCD_DisplayStringAt(x, y, textString, LEFT_MODE);
-//}
-

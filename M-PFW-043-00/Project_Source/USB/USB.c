@@ -1,10 +1,11 @@
 /*
  * USB.c
  *
- *  Created on: Jun 24, 2015
- *      Author: JacoOlivier
+ *  Created on: 20 November, 2018
+ *      Author: Hermi du Plessis
  */
 
+//=== Includes ===
 #include "USB.h"
 #include "ff_gen_drv.h"
 #include "usbh_diskio.h"
@@ -12,232 +13,208 @@
 #include "ff.h"
 #include <stdio.h>
 #include <stdint.h>
-/****************************************************************/
-/**
- * @brief
- * @param
- *   This parameter can be one of following parameters:
- *     @arg
- * @retval None
- */
-/****************************************************************/
-/***********************************************/
-//Local Variables
 
-//Global Variables
+//=== Defines ====
+
+//=== Global Variables ===
 extern ApplicationTypeDef Appli_state;
 extern NOR_HandleTypeDef S29GL01GS;
 extern USBH_HandleTypeDef hUsbHostFS;
-//extern Parameter Temp_Params[Parameters_Size];
-
-//Test Variables
-//short int F_WriteFile = 0;
-//short int F_ReadList = 0;
-//short int F_ReadFile = 0;
 
 
-/****************************************************************/
-/*This is the main state machine for the FlexiDisplay USB
- */
-/****************************************************************/
-void Main_USB_Handler(void)
-{
+//=== Local Variables ===
 
-}
+//=== Functions ===
 
 
+/*================================================
+ *USB Core functions -- these are automatically
+ *USB entered by the USB controller
+=================================================*/
 
-/****************************************************************/
-//USB Core functions -- these are automatically entered by the
-//USB controller
-/****************************************************************/
+/**===============================================
+ * @brief USB Core init is required at system
+ * startup for USB_OTG.
+ * @param  None
+ * @retval None
+ ===============================================*/
 
-/****************************************************************/
-//this always runs for any USB_OTG at system startup
-/****************************************************************/
 void USB_Core_Init(void)
 {
-	//display on lcd
-	//	OutTextXY(LCD_Setup_Text_X, Line4_y_Position, LCD_USB_Message_1);
-
+	TextToScreen_SML(0,0,USB_STATUS_MESSAGE_1,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB OTG Initialised\n\r");
+
 #endif
 }
 
-
-/****************************************************************/
-//display device attached, clear device disconnected
-/****************************************************************/
+/**===============================================
+ * @brief Display device attached, clear device
+ * disconnected
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_New_Device(void)
 {
-	//display on lcd
-	//	OutTextXY(LCD_Setup_Text_X, Line5_y_Position, LCD_USB_Message_3);
-
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB Device detected\n\r");
+
 #endif
 }
 
-/****************************************************************/
-//Some error occurred, not sure yest what this is??
-/****************************************************************/
+/**===============================================
+ * @brief Some error occurred.
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_Unrecovered_Error(void)
 {
+	TextToScreen_SML(0,30,USB_ERROR_MESSAGE_5,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB OTG non-recovered error\n\r");
+
 #endif
 }
 
-/****************************************************************/
-//Called when the flash disc is disconnected
-/****************************************************************/
+/**===============================================
+ * @brief Called when the flash disc is disconnected
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_Disconnected(void)
 {
-	//	//display on lcd
-	//	OutTextXY(LCD_Setup_Text_X, Line5_y_Position, LCD_USB_Message_2);
-	//	//clear other lines
-	//	OutTextXY(LCD_Setup_Text_X, Line6_y_Position, Clear_Line);
-	//	OutTextXY(LCD_Setup_Text_X, Line7_y_Position, Clear_Line);
-	//	OutTextXY(LCD_Setup_Text_X, Line8_y_Position, Clear_Line);
-	//	OutTextXY(LCD_Setup_Text_X, Line9_y_Position, Clear_Line);
-	//	OutTextXY(LCD_Setup_Text_X, Line10_y_Position, Clear_Line);
-	//	OutTextXY(LCD_Setup_Text_X, Line11_y_Position, Clear_Line);
-
-
-	//allow reset of error flag
-	//USB_Flags.Force_Disc_Remove = false;
-
+	TextToScreen_SML(0,0,USB_STATUS_MESSAGE_4,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB Device disconnected\n\r");
+
 #endif
 }
 
-/****************************************************************/
-//Not sure when this is called
-/****************************************************************/
+/**===============================================
+ * @brief
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_Reset(void)
 {
 
 }
 
-/****************************************************************/
-//Called when new device is in and enumeration is done.
-/****************************************************************/
+/**===============================================
+ * @brief Called when new device is in and enumeration
+ * is done.
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_Enum_Done(void)
 {
-	//display on lcd
-	//	OutTextXY(LCD_Setup_Text_X, Line6_y_Position, LCD_USB_Message_8);
+	TextToScreen_SML(0,0,USB_STATUS_MESSAGE_2,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB Device Enumeration Complete\n\r");
+
 #endif
 }
 
-/****************************************************************/
-//Called for unsupported devices
-/****************************************************************/
+/**===============================================
+ * @brief Called for unsupported device
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_Unsupported_Device(void)
 {
-
+	TextToScreen_SML(0,30,USB_ERROR_MESSAGE_1,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB ERROR - Device NOT Supported\n\r");
+
 #endif
 
 }
 
-/****************************************************************/
-//Entered once USB device speed is detected
-/****************************************************************/
+/**===============================================
+ * @brief Entered once USB device speed is detected
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_Speed_Detected(uint8_t DeviceSpeed)
 {
 	if(DeviceSpeed == HPRT0_PRTSPD_HIGH_SPEED)
 	{
-		//display on lcd
-		//		OutTextXY(LCD_Setup_Text_X, Line6_y_Position, LCD_USB_Message_4);
+		TextToScreen_SML(0,60,USB_SPEED_MESSAGE_1,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
 		USART_SendString(COM_PC,"USB High Speed Device\n\r");
 #endif
 	}
 	else if(DeviceSpeed == HPRT0_PRTSPD_FULL_SPEED)
 	{
-		//display on lcd
-		//		OutTextXY(LCD_Setup_Text_X, Line6_y_Position, LCD_USB_Message_5);
+
+		TextToScreen_SML(0,60,USB_SPEED_MESSAGE_2,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
 		USART_SendString(COM_PC,"USB Full Speed Device\n\r");
 #endif
 	}
 	else if(DeviceSpeed == HPRT0_PRTSPD_LOW_SPEED)
 	{
-		//display on lcd
-		//	OutTextXY(LCD_Setup_Text_X, Line6_y_Position, LCD_USB_Message_6);
+		TextToScreen_SML(0,60,USB_SPEED_MESSAGE_3,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
 		USART_SendString(COM_PC,"USB Low Speed Device\n\r");
 #endif
 	}
 	else
 	{
-		//display on lcd
-		//	OutTextXY(LCD_Setup_Text_X, Line6_y_Position, LCD_USB_Message_7);
+		TextToScreen_SML(0,60,USB_SPEED_MESSAGE_4,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
 		USART_SendString(COM_PC,"ERROR - Speed Detect Error\n\r");
 #endif
 	}
 }
 
-
-/****************************************************************/
-//Fat Init error
-/****************************************************************/
+/**===============================================
+ * @brief FAT init Error
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_FAT_Error(void)
 {
-	;//display on lcd
-	//OutTextXY(LCD_Setup_Text_X, Line7_y_Position, LCD_USB_Message_10);
-
+	TextToScreen_SML(0,30,USB_ERROR_MESSAGE_3,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB ERROR - Cannot Init FAT FS\n\r");
+
 #endif
 }
 
-/****************************************************************/
-//Fat Init error, disk protected
-/****************************************************************/
+/**===============================================
+ * @brief Fat Init Error, disk protected
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_Core_FAT_Disk_Protected(void)
 {
-	//display on lcd
-	//OutTextXY(LCD_Setup_Text_X, Line7_y_Position, LCD_USB_Message_11);
-
+	TextToScreen_SML(0,30,USB_ERROR_MESSAGE_4,LCD_COLOR_WHITE,LCD_COLOR_BLACK);
 #ifdef USB_Debug
-	USART_SendString(COM_PC,"USB ERROR - Disk Write Protected\n\r");
+
 #endif
 }
 
-
-
-/****************************************************************/
-//This function is called if the disc is in, all is started.
-//Function will now check what type of USB read is required
-//and call the correct function from here.
-/****************************************************************/
+/**===============================================
+ * @brief This function is called if the disk is in,
+ * all is started. Function will now check what type
+ * of USB read is required and call the correct function
+ * from here.
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_User_File_Reader(void)
 {
-
-
-
 }
 
 
-/****************************************************************/
-//This function is called to check if there are the required images
-//on the disc
-/****************************************************************/
+/**===============================================
+ * @brief This function is called to check if there
+ * are the required images on the disc.
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void USB_User_File_Explorer(void)
 {
 	//Now check what type of file scan is required.
 
 
 	/*UPDATE IMAGES*/
-//	if(USB_Flags.Image_Update_Requested)
-//	{
+	if(USB_Flags.Image_Update_Requested)
+	{
 
 		TIM3_Stop();
 		TIM4_Stop();
@@ -249,7 +226,7 @@ void USB_User_File_Explorer(void)
 		//check images, if count is OK, allow update, else show message and stop
 		if(Explore_Disk_Images(Images_Dir))
 		{
-			Update_Images_Now();
+			Update_Images_SM();
 			USB_Flags.Force_Disc_Remove = true;
 			USB_Flags.Image_Update_Requested = false;
 
@@ -264,28 +241,30 @@ void USB_User_File_Explorer(void)
 			{
 				IO_App_Read_Inputs();
 			}
-
-
-			TIM3_Start();
-			TIM4_Start();
+NVIC_SystemReset();
 
 		}
 		else
 		{
 			USB_Flags.Image_Update_Requested = false;
+			USB_Flags.Force_Disc_Remove = true;
 			TIM3_Start();
 			TIM4_Start();
-
-			USB_Flags.Force_Disc_Remove = true;
 		}
+	}
 }
 
 
 
-/****************************************************************/
-//This function is called when data must be written to the Flash
-//Disk, check which function to call from here
-/****************************************************************/
+/**===============================================
+ * @brief This function is called when data must
+ * be written to the Flash Disk, check which function
+ * to call from here
+ *
+ * @param  None
+ * @retval None
+ * ===============================================*/
+
 void USB_User_File_Writer(void)
 {
 	//Datalog Requested
@@ -293,19 +272,17 @@ void USB_User_File_Writer(void)
 	{
 		USB_Flags.DataLog_Requested = false;
 
-		//todo
-		//		if (check_if_block_ready())
-		//		{
-		//			check_and_move_block_ready();
-		//		}
-		//		datalog_req_move_block();
-		//
-		//		//this function will get datalog and store on USB flash disk
-		//		User_DataLog_Extraction_USB();
 	}
 
 }
 
+
+/**===============================================
+ * @brief USB Application statemachine. Check if
+ * Flash Disk is ready, start exploring Flash Disk.
+ * @param  None
+ * @retval None
+ * ===============================================*/
 void App_USB_SM(void)
 {
 	if(Appli_state == APPLICATION_READY)

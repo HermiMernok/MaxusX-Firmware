@@ -233,6 +233,9 @@ int main(void)
 //		 *================================*/
 //		Ethernet_Handler();
 App_printImg(0,0, IMG_BUTTON_UP);
+BSP_LCD_Clear(LCD_COLOR_BLUE);
+TextToScreen_SML(10,0,"Startup", LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+USB_Flags.Image_Update_Requested = true;
 //	}
 	while (1)
 	{
@@ -313,11 +316,6 @@ App_printImg(0,0, IMG_BUTTON_UP);
 		 * USB Application Handler
 		 *==============================*/
 		App_USB_SM();
-
-
-
-
-
 
 	}
 

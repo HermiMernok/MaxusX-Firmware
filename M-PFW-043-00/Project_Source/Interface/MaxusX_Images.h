@@ -1,23 +1,20 @@
-/*Commander100_Images.h*/
+/*
+ * USB_Image.h
+ *
+ *  Created on: 20 November, 2018
+ *      Author: Hermi du Plessis
+ *
+ */
+
 
 #ifndef MAXUSX_IMAGES_H_
 #define MAXUSX_IMAGES_H_
-//Includes
+
+//=== Includes ===
 #include "Global_Variables.h"
 
+//=== Defines ===
 
-
-typedef struct
-{
-	__IO uint16_t LCD_COMMAND;
-	__IO uint16_t LCD_DATA;
-} LCDFSMC_TypeDef;
-
-///* Note: LCD /CS is NE3 - Bank 3 of NOR/SRAM Bank 1~4 */
-//#define FSA506_LCD_BASE         ((uint32_t)(0x64000000))
-//#define LCD                		((LCDFSMC_TypeDef *) FSA506_LCD_BASE)
-
-//Defines
 //amount of images used by the system
 #define Number_Of_Images 				1
 
@@ -228,8 +225,13 @@ typedef struct
 //#define IMG_51_Addr			(IMG_50_Addr			+      	 IMG_50_Size)
 //#define IMG_52_Addr			(IMG_51_Addr			+      	 IMG_51_Size)
 
+//=== Public Variables ===
+typedef struct
+{
+	__IO uint16_t LCD_COMMAND;
+	__IO uint16_t LCD_DATA;
+} LCDFSMC_TypeDef;
 
-//variables made public
 typedef struct {
 	uint32_t size;
 	uint16_t X_size;
@@ -242,12 +244,10 @@ extern uint8_t Flash_Disk_ImageCount;
 extern uint8_t Image_Buf[IMAGE_BUFFER_SIZE];
 extern const image_t image[Number_Of_Images + 1];
 
-
-//Functions made public
+//=== Public Functions ===
 void DisplayImage(uint16_t x, uint16_t y, uint16_t index);
 void Display_all(void);
 void DMA_Configuration(uint32_t SRAM_BufferAddress, uint32_t NOR_ReadAddr, uint32_t size);
-//void NOR_DMAImageTransfer(uint32_t ReadAddr, uint32_t size);
 void NOR_DMAImageTransfer(uint32_t ReadAddr, uint32_t size,uint32_t count);
 
 

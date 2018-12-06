@@ -1,8 +1,9 @@
 core_cm7.h:1998:22:NVIC_SystemReset	4	static
-USB_Image.c:34:6:Check_Image_Count	8	static
-USB_Image.c:44:6:Flash_Erase_Blocks	88	static
-USB_Image.c:67:6:Update_Images_Now	88	static
-USB_Image.c:202:6:Explore_Disk_Images	888	static
-USB_Image.c:294:9:Image_Browser	904	static
-USB_Image.c:402:6:Do_Image	648	static
-USB_Image.c:428:6:Show_Image	680	static
+USB_Image.c:41:6:Wait_Response_than_Restart	8	static
+USB_Image.c:56:6:Check_Image_Count	8	static
+USB_Image.c:66:6:Flash_Erase_Blocks	88	static
+USB_Image.c:89:6:Update_Images_SM	72	static
+USB_Image.c:246:6:Explore_Disk_Images	880	static
+USB_Image.c:332:9:Image_Browser	896	static
+USB_Image.c:435:6:Store_Image	80	static
+USB_Image.c:461:6:Image_to_Flash	424	static

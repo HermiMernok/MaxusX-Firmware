@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;M-PFW-043-00/Project_Source/USB_App.c&apos;" deleteContents="false" description="Delete resource &apos;M-PFW-043-00/Project_Source/USB_App.c&apos;" element1="/M-PFW-043-00/Project_Source/USB_App.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1543911788875"/>
+</session>
