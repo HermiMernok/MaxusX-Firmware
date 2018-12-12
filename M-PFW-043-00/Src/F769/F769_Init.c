@@ -52,7 +52,7 @@ void Init_769(void)
 
 	MX_TIM3_Init();
 	MX_TIM5_Init(10);
-
+	BSP_QSPI_Init();
 
 	UART_Init(COM_EXP2,115200);
 	DMA_Init();

@@ -159,8 +159,22 @@ int main(void)
 	DMA_UART_RF_TX(Buffertx, 6);
 	extern uint8_t RF_RX_OK;
 	extern UART_HandleTypeDef huartx[COMn];
+	uint8_t QSPI_BUFFER[1024] = {0};
+	uint8_t QSPI_READBUFFER[1024] = {0};
 
+	for(int i =0; i < 1024 ; i++)
+	{
+		QSPI_BUFFER[i] = i;
+	}
+	BSP_QSPI_Write(QSPI_BUFFER,0x077FFFF ,1024);
+	BSP_QSPI_Read(QSPI_READBUFFER,0x077FFFF ,1024);
+	BSP_QSPI_Erase_Block(0x0780000);
 
+	BSP_QSPI_Read(QSPI_READBUFFER,0x077FFFF ,1024);
+	uint8_t text_buffer[5] = {0};
+	uint8_t feedback = BSP_QSPI_GetStatus();
+	//sprintf(text_buffer, "%d", feedback);
+	//TextToScreen_SML(100,0,text_buffer, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 //	while (1)
 //	{
 //		BSP_LCD_SetTextColor(LCD_COLOR_DARKGRAY);
@@ -217,9 +231,7 @@ int main(void)
 //		App_ACK_Handler();
 //		if(App_ACK_CheckFlag(ACK_Down))
 //		{
-//			App_ACK_ButtonReleased (ACK_Down);
-//			HAL_Delay(100);
-//
+
 //			tcp_echoclient_connect();
 //
 //		}

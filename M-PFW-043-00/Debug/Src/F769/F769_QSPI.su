@@ -16,6 +16,6 @@ F769_QSPI.c:822:16:QSPI_DummyCyclesCfg	88	static
 F769_QSPI.c:919:16:QSPI_EnterMemory_QPI	96	static
 F769_QSPI.c:967:16:QSPI_ExitMemory_QPI	72	static
 F769_QSPI.c:997:16:QSPI_OutDrvStrengthCfg	88	static
-F769_QSPI.c:1091:16:QSPI_WriteEnable	96	static
-F769_QSPI.c:1136:9:QSPI_StatusReadRequest	80	static
-F769_QSPI.c:1174:16:QSPI_AutoPollingMemReady	96	static
+F769_QSPI.c:1093:16:QSPI_WriteEnable	96	static
+F769_QSPI.c:1138:9:QSPI_StatusReadRequest	80	static
+F769_QSPI.c:1176:16:QSPI_AutoPollingMemReady	96	static

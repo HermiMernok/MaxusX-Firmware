@@ -17,6 +17,7 @@
 		<item value="false" key="caseSensitive"/>
 		<item value="227191" key="searchFlags"/>
 		<list key="previousPatterns">
+			<item value="BLOCK"/>
 			<item value="BSP_LCD_Y_Size"/>
 			<item value="lcd_x_size"/>
 			<item value="dsi_Reset"/>

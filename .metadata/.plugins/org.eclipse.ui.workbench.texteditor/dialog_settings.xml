@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="endif" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="endif"/>
-			<item value="disk"/>
-			<item value="Number_String"/>
-			<item value="index"/>
-			<item value="show_image"/>
-			<item value="image_Count"/>
-			<item value="callback"/>
-			<item value="Jump_to_application"/>
+			<item value="reg"/>
+			<item value="QSPI_OutDrvStrengthCfg"/>
+			<item value="QSPI_ResetMemory"/>
+			<item value="WRITE_STATUS_CFG_REG_CMD"/>
+			<item value="STATUS_REG_CMD"/>
+			<item value="write_STATUS_REG_CMD"/>
+			<item value="READ_STATUS_REG_CMD"/>
+			<item value="write"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
